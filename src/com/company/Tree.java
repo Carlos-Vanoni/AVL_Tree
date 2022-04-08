@@ -14,4 +14,8 @@ public class Tree {
     public void print(){
         root.print();
     }
+
+    public boolean search(Integer value){
+        return root.search(value);
+    }
 }
