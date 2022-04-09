@@ -6,6 +6,15 @@ public class Node {
     private Node right;
     private Node left;
     private Integer value;
+    private Integer height;
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
 
     public Node(Node right, Node left, Integer value) {
         this.right = right;
@@ -50,44 +59,29 @@ public class Node {
         }
     }
 
-    public void print(){
+    public void print(Integer height){
         if (value != null){
-            System.out.print(" " + value + " " +  this.getFactor() + " " + "\n");
+            System.out.print(value + " " + height + "\n");
             if (right != null){
-                right.print();
+                right.print(height + 1);
             }
             if (left != null){
-                left.print();
+                left.print(height + 1);
             }
         }
     }
 
-    public void checkBalance(){
-        if (value != null){
-            Integer factor = this.getFactor();
-            if (factor > 1){
-                if (left.getFactor() > 0){
-                    rotateRight();
-                }
-            }
-            if (factor < -1){
-                if (right.getFactor() < 0){
-                    rotateLeft();
-                }
-            }
-        }
-    }
 
-    public void rotateRight(){
 
-    }
-
-    public void rotateLeft(){
-
+    public Node rotateLeft(){
+        System.out.println("Rotate left");
+        return null;
     }
 
     public boolean search(Integer value){
+        System.out.print(this.value + " -> ");
         if (this.value == value){
+            System.out.print("Found\n");
             return true;
         }
         else {
@@ -98,6 +92,7 @@ public class Node {
                 return left.search(value);
             }
             else {
+                System.out.print("End of tree\n");
                 return false;
             }
         }
@@ -144,5 +139,17 @@ public class Node {
         } else {
             return heightRight + 1;
         }
+    }
+
+    public void setRight(Node right) {
+        this.right = right;
+    }
+
+    public void setLeft(Node left) {
+        this.left = left;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
     }
 }

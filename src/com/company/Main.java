@@ -4,18 +4,18 @@ public class Main {
 
     public static void main(String[] args) {
         Tree avl = new Tree();
-        avl.insert(4);
-        avl.insert(1);
-        avl.insert(3);
-        avl.insert(6);
-        avl.insert(5);
-        avl.insert(2);
-        avl.insert(7);
+        avl.insert(120);
+        avl.insert(110);
+        avl.insert(150);
+        avl.insert(100);
+        avl.insert(130);
+        avl.insert(200);
+        avl.insert(80);
         avl.print();
-        System.out.println(avl.search(6));
-        System.out.println(avl.search(10));
-        System.out.println(avl.search(1));
-        System.out.println(avl.search(0));
+//      avl.search(6);
+//      avl.search(10);
+//      avl.search(1);
+//      avl.search(2);
     }
 }
 
