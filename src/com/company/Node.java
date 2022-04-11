@@ -6,15 +6,6 @@ public class Node {
     private Node right;
     private Node left;
     private Integer value;
-    private Integer height;
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
 
     public Node(Node right, Node left, Integer value) {
         this.right = right;
@@ -69,13 +60,6 @@ public class Node {
                 left.print(height + 1);
             }
         }
-    }
-
-
-
-    public Node rotateLeft(){
-        System.out.println("Rotate left");
-        return null;
     }
 
     public boolean search(Integer value){
@@ -138,6 +122,93 @@ public class Node {
             return heightLeft + 1;
         } else {
             return heightRight + 1;
+        }
+    }
+
+    public Node clone(){
+        Node newNode = new Node();
+        newNode.setLeft(left);
+        newNode.setRight(right);
+        newNode.setValue(value);
+        return newNode;
+    }
+
+    public void rotateRight(){
+        Node temp = left.clone();
+        left = left.getLeft();
+        right = new Node(value);
+        value = temp.getValue();
+    }
+
+    public void rotateLeft(){
+        Node temp = right.clone();
+        right = right.getRight();
+        left = new Node(value);
+        value = temp.getValue();
+    }
+
+    public void doubleRotationRight(){
+        left.rotateLeft();
+        rotateRight();
+    }
+
+    public void doubleRotationLeft(){
+        right.rotateRight();
+        rotateLeft();
+    }
+
+    public int findLargest(int largestValue){
+        if (value > largestValue){
+            largestValue = value;
+        }
+        if (left != null){
+            return findLargest(largestValue);
+        }
+        if (right != null){
+            return findLargest(largestValue);
+        }
+        return largestValue;
+    }
+
+    public void checkBalance(){
+        if (value != null){
+            Integer factor = getFactor();
+            if (factor > 1){
+                if (left.getFactor() > 0){
+                    rotateRight();
+                } else if (left.getFactor() < 0){
+                    doubleRotationRight();
+                }
+            } else if (factor < -1){
+                if (right.getFactor() < 0){
+                    rotateLeft();
+                } else if (right.getFactor() > 0) {
+                    doubleRotationLeft();
+                }
+            }
+        }
+        if (right != null) {
+            right.checkBalance();
+        }
+        if (left != null) {
+            left.checkBalance();
+        }
+    }
+
+    public Node searchNode(Integer value){
+        if (this.value == value){
+            return this;
+        }
+        else {
+            if (value > this.value && right != null){
+                return right.searchNode(value);
+            }
+            else if (left != null) {
+                return left.searchNode(value);
+            }
+            else {
+                return null;
+            }
         }
     }
 
