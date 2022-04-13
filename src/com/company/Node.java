@@ -64,7 +64,7 @@ public class Node {
 
     public boolean search(Integer value){
         System.out.print(this.value + " -> ");
-        if (this.value == value){
+        if (this.value.equals(value)){
             System.out.print("Found\n");
             return true;
         }
@@ -134,17 +134,19 @@ public class Node {
     }
 
     public void rotateRight(){
-        Node temp = left.clone();
-        left = left.getLeft();
-        right = new Node(value);
-        value = temp.getValue();
+        Node temp = this.clone();
+        value = left.getValue();
+        left = left.getRight();
+        temp.left = temp.getLeft().getRight();
+        right = temp;
     }
 
     public void rotateLeft(){
-        Node temp = right.clone();
+        Node temp = this.clone();
+        value = right.getValue();
         right = right.getRight();
-        left = new Node(value);
-        value = temp.getValue();
+        temp.right = temp.getRight().getLeft();
+        left = temp;
     }
 
     public void doubleRotationRight(){
@@ -158,45 +160,61 @@ public class Node {
     }
 
     public int findLargest(int largestValue){
-        if (value > largestValue){
-            largestValue = value;
-        }
-        if (left != null){
-            return findLargest(largestValue);
-        }
-        if (right != null){
-            return findLargest(largestValue);
+        int largestLeft = 0;
+        int largestRight = 0;
+        if (value != null) {
+            if (left != null){
+                largestLeft = left.findLargest(0);
+            }
+            if (right != null){
+                largestRight = right.findLargest(0);
+            }
+            if (largestLeft > largestRight){
+                largestValue = largestLeft;
+            } else {
+                largestValue = largestRight;
+            }
+            if (value > largestValue){
+                largestValue = value;
+            }
         }
         return largestValue;
     }
 
-    public void checkBalance(){
+    public boolean checkBalance(){
+        boolean balanceRight = true;
+        boolean balanceLeft = true;
         if (value != null){
             Integer factor = getFactor();
             if (factor > 1){
                 if (left.getFactor() > 0){
                     rotateRight();
+                    balanceRight = false;
                 } else if (left.getFactor() < 0){
                     doubleRotationRight();
+                    balanceRight = false;
                 }
             } else if (factor < -1){
                 if (right.getFactor() < 0){
                     rotateLeft();
+                    balanceLeft = false;
                 } else if (right.getFactor() > 0) {
                     doubleRotationLeft();
+                    balanceLeft = false;
                 }
             }
         }
         if (right != null) {
-            right.checkBalance();
+            balanceRight = right.checkBalance();
         }
         if (left != null) {
-            left.checkBalance();
+            balanceLeft = left.checkBalance();
         }
+        return balanceRight && balanceLeft;
     }
 
     public Node searchNode(Integer value){
-        if (this.value == value){
+        if (this.value.equals(value)){
             return this;
         }
         else {
@@ -210,6 +228,47 @@ public class Node {
                 return null;
             }
         }
+    }
+
+    public void remove(){
+        if (left != null){
+            Integer largestValue = left.findLargest(0);
+            Node largestLeft = searchNode(largestValue);
+            value = largestLeft.getValue();
+            largestLeft.remove();
+        } else if (right != null) {
+            value = right.getValue();
+            right.remove();
+        } else {
+            Node toRemove = searchNode(value);
+            toRemove = null;
+            clear();
+        }
+        checkNull();
+    }
+
+    public void checkNull(){
+        if (left != null){
+            if (left.getValue() == null){
+                left = null;
+            }
+            else {
+                left.checkNull();
+            }
+        }
+        if (right != null){
+            if (right.getValue() == null){
+                right = null;
+            } else {
+                right.checkNull();
+            }
+        }
+    }
+
+    public void clear(){
+        left = null;
+        right = null;
+        value = null;
     }
 
     public void setRight(Node right) {

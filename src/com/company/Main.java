@@ -4,23 +4,27 @@ public class Main {
 
     public static void main(String[] args) {
         Tree avl = new Tree();
-        avl.insert(120);
-        avl.insert(100);
-        avl.insert(130);
-        avl.insert(80);
-        avl.insert(110);
-        avl.insert(200);
-        avl.insert(150);
+        avl.insert(32);
+        avl.insert(16);
+        avl.insert(48);
+        avl.insert(8);
+        avl.insert(24);
+        avl.insert(40);
+        avl.insert(56);
 
-        //avl.print();
+        avl.insert(36);
+        avl.insert(28);
 
-        avl.remove(150);
+        avl.insert(44);
+        avl.insert(52);
 
+        avl.insert(60);
+
+        avl.insert(58);
+        avl.insert(62);
+
+        avl.remove(8);
         avl.print();
-//      avl.search(6);
-//      avl.search(10);
-//      avl.search(1);
-//      avl.search(2);
     }
 }
 
