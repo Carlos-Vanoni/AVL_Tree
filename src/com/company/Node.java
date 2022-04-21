@@ -2,6 +2,8 @@ package com.company;
 
 import com.sun.source.doctree.ValueTree;
 
+import java.util.ArrayList;
+
 public class Node {
     private Node right;
     private Node left;
@@ -50,14 +52,14 @@ public class Node {
         }
     }
 
-    public void print(Integer height){
+    public void print(int x, int y, Integer[][] tree){
         if (value != null){
-            System.out.print(value + " " + height + "\n");
+            tree[x][y] = value;
             if (right != null){
-                right.print(height + 1);
+                right.print(x + 1, y + (int) Math.pow(2, getTreeHeight(0) - 2), tree);
             }
             if (left != null){
-                left.print(height + 1);
+                left.print(x + 1, y - (int) Math.pow(2, getTreeHeight(0) - 2), tree);
             }
         }
     }
@@ -187,18 +189,24 @@ public class Node {
         if (value != null){
             Integer factor = getFactor();
             if (factor > 1){
+                System.out.println("Arvore desbalanceada");
                 if (left.getFactor() > 0){
+                    System.out.println("Realizando rotação a direita");
                     rotateRight();
                     balanceRight = false;
                 } else if (left.getFactor() < 0){
+                    System.out.println("Realizando dupla rotação a direita");
                     doubleRotationRight();
                     balanceRight = false;
                 }
             } else if (factor < -1){
+                System.out.println("Arvore desbalanceada");
                 if (right.getFactor() < 0){
+                    System.out.println("Realizando rotação a esquerda");
                     rotateLeft();
                     balanceLeft = false;
                 } else if (right.getFactor() > 0) {
+                    System.out.println("Realizando dupla rotação a esquerda");
                     doubleRotationLeft();
                     balanceLeft = false;
                 }
@@ -283,3 +291,4 @@ public class Node {
         this.value = value;
     }
 }
+
