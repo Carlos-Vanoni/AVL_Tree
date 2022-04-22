@@ -10,23 +10,30 @@ public class Tree {
     }
 
     public boolean insert(int newValue){
-        root.insert(newValue);
-        root.checkBalance();
+        if (root != null) {
+            root.insert(newValue);
+            root.checkBalance();
+        } else {
+            root = new Node(newValue);
+        }
         return true;
     }
 
     public boolean remove(int value){
-        Node toRemove =  root.searchNode(value);
-        if (toRemove != null) {
-            toRemove.remove();
+        if (root.getValue() != null){
+            Node toRemove =  root.searchNode(value);
+            if (toRemove != null) {
+                toRemove.remove();
+            }
+            root.checkNull();
+            root.checkBalance();
+            boolean balanced = root.checkBalance();
+            while (!balanced){
+                balanced = root.checkBalance();
+            }
+            return true;
         }
-        root.checkNull();
-        boolean balanced = root.checkBalance();
-        balanced = root.checkBalance();
-        while (!balanced){
-            balanced = root.checkBalance();
-        }
-        return true;
+        return false;
     }
 
     public void checkBalance(){
@@ -37,7 +44,7 @@ public class Tree {
         System.out.println("Estado atual da árvore: ");
         int height = root.getTreeHeight(0);
         Integer[][] tree = new Integer[height][(int) Math.pow(2, height - 1) * 2];
-        root.print(0, (int) Math.pow(2, height - 1), tree);
+        root.print(0, (int) Math.pow(2, height - 1) - 1, tree);
         for(int i = 0; i < tree.length; i++){
             for (int j = 0; j < tree[i].length; j++){
                 if (tree[i][j] == null) {
@@ -54,6 +61,9 @@ public class Tree {
     }
 
     public boolean search(int value){
-        return root.search(value);
+        if (root.getValue() != null){
+            return root.search(value);
+        }
+        return false;
     }
 }

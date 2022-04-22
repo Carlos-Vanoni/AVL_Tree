@@ -67,7 +67,7 @@ public class Node {
     public boolean search(Integer value){
         System.out.print(this.value + " -> ");
         if (this.value.equals(value)){
-            System.out.print("Found\n");
+            System.out.print("Encontrado\n");
             return true;
         }
         else {
@@ -78,7 +78,7 @@ public class Node {
                 return left.search(value);
             }
             else {
-                System.out.print("End of tree\n");
+                System.out.print("Fim da árvore, valor não encontrado\n");
                 return false;
             }
         }
@@ -242,8 +242,10 @@ public class Node {
         if (left != null){
             Integer largestValue = left.findLargest(0);
             Node largestLeft = searchNode(largestValue);
-            value = largestLeft.getValue();
-            largestLeft.remove();
+            if (largestLeft != null){
+                value = largestLeft.getValue();
+                largestLeft.remove();
+            }
         } else if (right != null) {
             value = right.getValue();
             right.remove();
