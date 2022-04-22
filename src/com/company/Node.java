@@ -138,7 +138,7 @@ public class Node {
     public void rotateRight(){
         Node temp = this.clone();
         value = left.getValue();
-        left = left.getRight();
+        left = left.getLeft();
         temp.left = temp.getLeft().getRight();
         right = temp;
     }
@@ -190,7 +190,7 @@ public class Node {
             Integer factor = getFactor();
             if (factor > 1){
                 System.out.println("Arvore desbalanceada");
-                if (left.getFactor() > 0){
+                if (left.getFactor() >= 0){
                     System.out.println("Realizando rotação a direita");
                     rotateRight();
                     balanceRight = false;
@@ -201,7 +201,7 @@ public class Node {
                 }
             } else if (factor < -1){
                 System.out.println("Arvore desbalanceada");
-                if (right.getFactor() < 0){
+                if (right.getFactor() <= 0){
                     System.out.println("Realizando rotação a esquerda");
                     rotateLeft();
                     balanceLeft = false;
@@ -242,10 +242,8 @@ public class Node {
         if (left != null){
             Integer largestValue = left.findLargest(0);
             Node largestLeft = searchNode(largestValue);
-            if (largestLeft != null){
-                value = largestLeft.getValue();
-                largestLeft.remove();
-            }
+            value = largestLeft.getValue();
+            largestLeft.remove();
         } else if (right != null) {
             value = right.getValue();
             right.remove();

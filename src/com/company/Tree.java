@@ -26,8 +26,8 @@ public class Tree {
                 toRemove.remove();
             }
             root.checkNull();
-            root.checkBalance();
             boolean balanced = root.checkBalance();
+            balanced = root.checkBalance();
             while (!balanced){
                 balanced = root.checkBalance();
             }
