@@ -186,6 +186,12 @@ public class Node {
     public boolean checkBalance(){
         boolean balanceRight = true;
         boolean balanceLeft = true;
+        if (right != null) {
+            balanceRight = right.checkBalance();
+        }
+        if (left != null) {
+            balanceLeft = left.checkBalance();
+        }
         if (value != null){
             Integer factor = getFactor();
             if (factor > 1){
@@ -211,12 +217,6 @@ public class Node {
                     balanceLeft = false;
                 }
             }
-        }
-        if (right != null) {
-            balanceRight = right.checkBalance();
-        }
-        if (left != null) {
-            balanceLeft = left.checkBalance();
         }
         return balanceRight && balanceLeft;
     }

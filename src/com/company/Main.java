@@ -4,6 +4,30 @@ public class Main {
 
     public static void main(String[] args) {
         Tree avl = new Tree();
+//        avl.insert(32);
+//        avl.insert(16);
+//        avl.insert(48);
+//        avl.insert(8);
+//        avl.insert(24);
+//        avl.insert(40);
+//        avl.insert(56);
+//
+//        avl.insert(36);
+//        avl.insert(28);
+//
+//        avl.insert(44);
+//        avl.insert(52);
+//
+//        avl.insert(60);
+        avl.insert(7);
+        avl.insert(1);
+        avl.insert(2);
+        avl.insert(1);
+        avl.insert(5);
+        avl.insert(4);
+        avl.insert(14);
+        avl.insert(20);
+        avl.insert(16);
         UserInteraction userCommands = new UserInteraction(avl);
         boolean exit =  true;
         avl.print();
