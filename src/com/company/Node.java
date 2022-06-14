@@ -90,21 +90,20 @@ public class Node {
 
     public ArrayList<Person> searchName(String value, ArrayList<Person> people){
         System.out.print(this.value + " -> ");
-        if (value != null){
-            String substring = this.value.substring(0, value.length());
-            if (value.equalsIgnoreCase(substring)){
-                people.add(person);
-            }
-            //          b
-            // a                    c
-            if (right != null){
-                right.searchName(value, people);
-            }
-            if (left != null) {
-                left.searchName(value, people);
-            }
+        if (this.value.substring(0, value.length()).equalsIgnoreCase(value)){
+            System.out.print("Encontrado\n");
+            people.add(person);
         }
-        System.out.print("Fim da árvore, " + people.size() + " pessoas encontradas \n");
+        if ((value.compareToIgnoreCase(this.value.substring(0, value.length())) > 0) && right != null){
+            right.searchName(value, people);
+        }
+        else if (left != null) {
+            left.searchName(value, people);
+        }
+        else {
+            System.out.print("Fim da árvore, " + people.size()+  " pessoas encontradas\n");
+            return people;
+        }
         return people;
     }
 

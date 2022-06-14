@@ -51,7 +51,7 @@ public class Main {
         r.read("eduar", "teste.csv");
 //        Person tal = r.searchCPF("10987654325");
 //        System.out.println(tal.toString());
-        ArrayList<Person> people = r.searchName("c");
+        ArrayList<Person> people = r.searchName("Ce");
         System.out.println(people);
     }
 }
