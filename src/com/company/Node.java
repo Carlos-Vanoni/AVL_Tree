@@ -94,15 +94,11 @@ public class Node {
             System.out.print("Encontrado\n");
             people.add(person);
         }
-        if ((value.compareToIgnoreCase(this.value.substring(0, value.length())) > 0) && right != null){
+        if ((value.compareToIgnoreCase(this.value.substring(0, value.length())) > -1) && right != null){
             right.searchName(value, people);
         }
-        else if (left != null) {
+        if ((value.compareToIgnoreCase(this.value.substring(0, value.length())) < 1) && left != null) {
             left.searchName(value, people);
-        }
-        else {
-            System.out.print("Fim da árvore, " + people.size()+  " pessoas encontradas\n");
-            return people;
         }
         return people;
     }

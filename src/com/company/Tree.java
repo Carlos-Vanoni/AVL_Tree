@@ -75,9 +75,14 @@ public class Tree {
     }
 
     public ArrayList<Person> searchName(String value){
-        if (root.getValue() != null){
-            ArrayList<Person> people = new ArrayList<Person>();
-            return root.searchName(value, people);
+        if (value.length() > 0) {
+            if (root.getValue() != null){
+                ArrayList<Person> people = new ArrayList<Person>();
+                root.searchName(value, people);
+                System.out.println(people.size() + " pessoas encontradas");
+                return people;
+
+            }
         }
         return null;
     }
