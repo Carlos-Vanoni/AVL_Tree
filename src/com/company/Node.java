@@ -7,12 +7,14 @@ import java.util.ArrayList;
 public class Node {
     private Node right;
     private Node left;
-    private Integer value;
+    private String value;
+    private Person person;
 
-    public Node(Node right, Node left, Integer value) {
+    public Node(Node right, Node left, String value) {
         this.right = right;
         this.left = left;
         this.value = value;
+
     }
 
     public Node(Node right, Node left) {
@@ -20,10 +22,11 @@ public class Node {
         this.left = left;
     }
 
-    public Node(Integer value) {
+    public Node(String value, Person person) {
         this.right = null;
         this.left = null;
         this.value = value;
+        this.person = person;
     }
 
     public Node() {
@@ -31,28 +34,29 @@ public class Node {
         this.left = null;
     }
 
-    public void insert(Integer newValue){
+    public void insert(String newValue, Person person){
         if (value == null){
             value = newValue;
+            this.person = person;
         }
-        else if (newValue < value){
+        else if (value.compareToIgnoreCase(newValue) > 0){
             if (left == null){
-                left = new Node(newValue);
+                left = new Node(newValue, person);
             }
             else {
-                left.insert(newValue);
+                left.insert(newValue, person);
             }
         }
-        else if (newValue > value) {
+        else if (newValue.compareTo(value) > 0) {
             if (right == null) {
-                right = new Node(newValue);
+                right = new Node(newValue, person);
             } else {
-                right.insert(newValue);
+                right.insert(newValue, person);
             }
         }
     }
 
-    public void print(int x, int y, Integer[][] tree){
+    public void print(int x, int y, String[][] tree){
         if (value != null){
             tree[x][y] = value;
             if (right != null){
@@ -64,24 +68,44 @@ public class Node {
         }
     }
 
-    public boolean search(Integer value){
+    public Person searchCPF(String value){
         System.out.print(this.value + " -> ");
         if (this.value.equals(value)){
             System.out.print("Encontrado\n");
-            return true;
+            return person;
         }
         else {
-            if (value > this.value && right != null){
-                return right.search(value);
+            if ((value.compareTo(this.value) > 0) && right != null){
+                return right.searchCPF(value);
             }
             else if (left != null) {
-                return left.search(value);
+                return left.searchCPF(value);
             }
             else {
                 System.out.print("Fim da árvore, valor não encontrado\n");
-                return false;
+                return null;
             }
         }
+    }
+
+    public ArrayList<Person> searchName(String value, ArrayList<Person> people){
+        System.out.print(this.value + " -> ");
+        if (value != null){
+            String substring = this.value.substring(0, value.length());
+            if (value.equalsIgnoreCase(substring)){
+                people.add(person);
+            }
+            //          b
+            // a                    c
+            if (right != null){
+                right.searchName(value, people);
+            }
+            if (left != null) {
+                left.searchName(value, people);
+            }
+        }
+        System.out.print("Fim da árvore, " + people.size() + " pessoas encontradas \n");
+        return people;
     }
 
     public Integer getFactor(){
@@ -104,7 +128,7 @@ public class Node {
         return left;
     }
 
-    public Integer getValue() {
+    public String getValue() {
         return value;
     }
 
@@ -132,12 +156,14 @@ public class Node {
         newNode.setLeft(left);
         newNode.setRight(right);
         newNode.setValue(value);
+        newNode.setPerson(person);
         return newNode;
     }
 
     public void rotateRight(){
         Node temp = this.clone();
         value = left.getValue();
+        person = left.getPerson();
         left = left.getLeft();
         temp.left = temp.getLeft().getRight();
         right = temp;
@@ -146,6 +172,7 @@ public class Node {
     public void rotateLeft(){
         Node temp = this.clone();
         value = right.getValue();
+        person = right.getPerson();
         right = right.getRight();
         temp.right = temp.getRight().getLeft();
         left = temp;
@@ -161,22 +188,22 @@ public class Node {
         rotateLeft();
     }
 
-    public int findLargest(int largestValue){
-        int largestLeft = 0;
-        int largestRight = 0;
+    public String findLargest(String largestValue){
+        String largestLeft = "";
+        String largestRight = "";
         if (value != null) {
             if (left != null){
-                largestLeft = left.findLargest(0);
+                largestLeft = left.findLargest("");
             }
             if (right != null){
-                largestRight = right.findLargest(0);
+                largestRight = right.findLargest("");
             }
-            if (largestLeft > largestRight){
+            if (largestLeft.compareTo(largestRight) > 0){
                 largestValue = largestLeft;
             } else {
                 largestValue = largestRight;
             }
-            if (value > largestValue){
+            if (value.compareTo(largestValue) > 0){
                 largestValue = value;
             }
         }
@@ -221,12 +248,12 @@ public class Node {
         return balanceRight && balanceLeft;
     }
 
-    public Node searchNode(Integer value){
+    public Node searchNode(String value){
         if (this.value.equals(value)){
             return this;
         }
         else {
-            if (value > this.value && right != null){
+            if ((value.compareTo(this.value) > 0) && right != null){
                 return right.searchNode(value);
             }
             else if (left != null) {
@@ -240,7 +267,7 @@ public class Node {
 
     public void remove(){
         if (left != null){
-            Integer largestValue = left.findLargest(0);
+            String largestValue = left.findLargest("");
             Node largestLeft = searchNode(largestValue);
             value = largestLeft.getValue();
             largestLeft.remove();
@@ -277,6 +304,7 @@ public class Node {
         left = null;
         right = null;
         value = null;
+        person = null;
     }
 
     public void setRight(Node right) {
@@ -287,8 +315,16 @@ public class Node {
         this.left = left;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(String value) {
         this.value = value;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }
 

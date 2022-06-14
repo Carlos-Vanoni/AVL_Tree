@@ -46,20 +46,20 @@ public class UserInteraction {
         return (s);
     }
 
-    public boolean readCommand(String command, Integer value) {
-        if(command.equalsIgnoreCase("i"))
-            return tree.insert(value);
-        if(command.equalsIgnoreCase("b"))
-            return tree.search(value);
-        if(command.equalsIgnoreCase("r"))
-            return tree.remove(value);
-        else {
-            System.out.println("comando invalido");
-            return false;
-        }
-    }
+//    public boolean readCommand(String command, String value) {
+//        if(command.equalsIgnoreCase("i"))
+//            return tree.insert(value);
+//        if(command.equalsIgnoreCase("b"))
+//            return tree.search(value);
+//        if(command.equalsIgnoreCase("r"))
+//            return tree.remove(value);
+//        else {
+//            System.out.println("comando invalido");
+//            return false;
+//        }
+//    }
 
-    public void print() {
-        tree.print();
-    }
+//    public void print() {
+//        tree.print();
+//    }
 }

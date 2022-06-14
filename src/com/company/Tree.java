@@ -9,17 +9,17 @@ public class Tree {
         this.root = new Node();
     }
 
-    public boolean insert(int newValue){
+    public boolean insert(String newValue, Person person){
         if (root != null) {
-            root.insert(newValue);
+            root.insert(newValue, person);
             root.checkBalance();
         } else {
-            root = new Node(newValue);
+            root = new Node(newValue, person);
         }
         return true;
     }
 
-    public boolean remove(int value){
+    public boolean remove(String value){
         if (root.getValue() != null){
             Node toRemove =  root.searchNode(value);
             if (toRemove != null) {
@@ -40,30 +40,45 @@ public class Tree {
         root.checkBalance();
     }
 
-    public void print(){
-        System.out.println("Estado atual da árvore: ");
-        int height = root.getTreeHeight(0);
-        Integer[][] tree = new Integer[height][(int) Math.pow(2, height - 1) * 2];
-        root.print(0, (int) Math.pow(2, height - 1) - 1, tree);
-        for(int i = 0; i < tree.length; i++){
-            for (int j = 0; j < tree[i].length; j++){
-                if (tree[i][j] == null) {
-                    System.out.print("  ");
-                } else {
-                    if (tree[i][j] < 10){
-                        System.out.print(" ");
-                    }
-                    System.out.print(tree[i][j]);
-                }
-            }
-            System.out.print("\n");
+//    public void print(){
+//        System.out.println("Estado atual da árvore: ");
+//        int height = root.getTreeHeight(0);
+//        String[][] tree = new String[height][(int) Math.pow(2, height - 1) * 2];
+//        root.print(0, (int) Math.pow(2, height - 1) - 1, tree);
+//        for(int i = 0; i < tree.length; i++){
+//            for (int j = 0; j < tree[i].length; j++){
+//                if (tree[i][j] == null) {
+//                    System.out.print("  ");
+//                } else {
+//                    if (tree[i][j] < 10){
+//                        System.out.print(" ");
+//                    }
+//                    System.out.print(tree[i][j]);
+//                }
+//            }
+//            System.out.print("\n");
+//        }
+//    }
+
+//    public boolean search(String value){
+//        if (root.getValue() != null){
+//            return root.search(value);
+//        }
+//        return false;
+//    }
+
+    public Person searchPerson(String value){
+        if (root.getValue() != null){
+            return root.searchCPF(value);
         }
+        return null;
     }
 
-    public boolean search(int value){
+    public ArrayList<Person> searchName(String value){
         if (root.getValue() != null){
-            return root.search(value);
+            ArrayList<Person> people = new ArrayList<Person>();
+            return root.searchName(value, people);
         }
-        return false;
+        return null;
     }
 }
