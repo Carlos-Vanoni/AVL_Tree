@@ -1,5 +1,6 @@
 package com.company;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Tree {
@@ -78,6 +79,13 @@ public class Tree {
         if (root.getValue() != null){
             ArrayList<Person> people = new ArrayList<Person>();
             return root.searchName(value, people);
+        }
+        return null;
+    }
+    public ArrayList<Person> searchDate(LocalDate start, LocalDate end) {
+        if (root.getPerson() != null){
+            ArrayList<Person> people = new ArrayList<Person>();
+            return root.searchDate(start, end, people);
         }
         return null;
     }

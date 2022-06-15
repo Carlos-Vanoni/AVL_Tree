@@ -1,5 +1,6 @@
 package com.company;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Main {
@@ -48,10 +49,11 @@ public class Main {
 //            userCommands.print();
 //        }
         Reader r = new Reader();
-        r.read("eduar", "teste.csv");
-//        Person tal = r.searchCPF("10987654325");
-//        System.out.println(tal.toString());
-        ArrayList<Person> people = r.searchName("Ce");
+        UserInteraction u = new UserInteraction(r);
+
+        r.read("carlo", "csv1.txt");
+
+        ArrayList<Person> people = u.searchDate(LocalDate.of(2022,10,25), LocalDate.of(2022,11,16));
         System.out.println(people);
     }
 }

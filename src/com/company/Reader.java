@@ -15,6 +15,17 @@ public class Reader {
     private Tree treeName;
     private Tree treeDate;
 
+    public com.company.Tree getTreeCpf() {
+        return treeCpf;
+    }
+
+    public com.company.Tree getTreeName() {
+        return treeName;
+    }
+
+    public com.company.Tree getTreeDate() {
+        return treeDate;
+    }
 
     public Reader() {
         this.treeCpf = new Tree();
@@ -29,8 +40,6 @@ public class Reader {
 
             String line = "";
             line = r.readLine();
-            ArrayList<Person> list = new ArrayList<>();
-            ArrayList<Person> listAux = new ArrayList<>();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 
             while (line != null) {
@@ -40,13 +49,13 @@ public class Reader {
                     String cpf = listSplited[0];
                     String rg = listSplited[1];
                     String name = listSplited[2];
-                    LocalDate bornDate = LocalDate.parse(listSplited[3], formatter);
+                    String bornDate = listSplited[3];
                     String city = listSplited[4];
 
                     Person newPerson = new Person(cpf, rg, name, bornDate, city);
 
                     treeCpf.insert(cpf, newPerson);
-                    treeDate.insert(bornDate.toString(), newPerson);
+                    treeDate.insert(bornDate, newPerson);
                     treeName.insert(name, newPerson);
 
                     System.out.println(cpf);
