@@ -2,6 +2,8 @@ package com.company;
 
 import com.sun.source.doctree.ValueTree;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Node {
@@ -99,6 +101,23 @@ public class Node {
         }
         if ((value.compareToIgnoreCase(this.value.substring(0, value.length())) < 1) && left != null) {
             left.searchName(value, people);
+        }
+        return people;
+    }
+
+    public ArrayList<Person> searchDate(LocalDate start, LocalDate end, ArrayList<Person> people) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+
+        if (LocalDate.parse(this.person.getBornDate(), formatter).isAfter(start.minusDays(1))
+                && LocalDate.parse(this.person.getBornDate(), formatter).isBefore(end.plusDays(1))){
+            System.out.print("Encontrado\n");
+            people.add(person);
+        }
+        if ((LocalDate.parse(this.person.getBornDate(), formatter).isAfter(end.plusDays(1))) && left != null){
+            return left.searchDate(start, end, people);
+        }
+        if (right != null) {
+            return right.searchDate(start, end, people);
         }
         return people;
     }
