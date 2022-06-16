@@ -1,4 +1,5 @@
 package com.company;
+
 import java.time.LocalDate;
 
 public class Person {
@@ -6,10 +7,10 @@ public class Person {
     private String cpf;
     private String rg;
     private String name;
-    private LocalDate bornDate;
+    private String bornDate;
     private String city;
 
-    public Person(String cpf, String rg, String name, LocalDate bornDate, String city) {
+    public Person(String cpf, String rg, String name, String bornDate, String city) {
         this.cpf = cpf;
         this.rg = rg;
         this.name = name;
@@ -41,11 +42,11 @@ public class Person {
         this.name = name;
     }
 
-    public LocalDate getBornDate() {
+    public String getBornDate() {
         return bornDate;
     }
 
-    public void setBornDate(LocalDate bornDate) {
+    public void setBornDate(String bornDate) {
         this.bornDate = bornDate;
     }
 

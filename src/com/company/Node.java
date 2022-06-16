@@ -2,7 +2,12 @@ package com.company;
 
 import com.sun.source.doctree.ValueTree;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Node {
     private Node right;
@@ -47,7 +52,7 @@ public class Node {
                 left.insert(newValue, person);
             }
         }
-        else if (newValue.compareTo(value) > 0) {
+        else if (newValue.compareToIgnoreCase(value) > 0) {
             if (right == null) {
                 right = new Node(newValue, person);
             } else {
@@ -99,6 +104,30 @@ public class Node {
         }
         if ((value.compareToIgnoreCase(this.value.substring(0, value.length())) < 1) && left != null) {
             left.searchName(value, people);
+        }
+        return people;
+    }
+
+    public ArrayList<Person> searchDate(String start, String end, ArrayList<Person> people) {
+        SimpleDateFormat formatter = new SimpleDateFormat("d/MM/yyyy");
+        try {
+            Date startDate = formatter.parse(start);
+            Date endDate = formatter.parse(end);
+            Long startDateLong = TimeUnit.DAYS.convert(startDate.getTime(), TimeUnit.MILLISECONDS);
+            Long endDateLong = TimeUnit.DAYS.convert(endDate.getTime(), TimeUnit.MILLISECONDS);
+            Long valueLong = Long.parseLong(value);
+
+            if (valueLong >= startDateLong && valueLong <= endDateLong){
+                people.add(person);
+            }
+            if (valueLong <= endDateLong && right != null){
+                right.searchDate(start, end, people);
+            }
+            if (valueLong >= startDateLong && left != null) {
+                left.searchDate(start, end, people);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return people;
     }
