@@ -23,9 +23,21 @@ public class Reader {
         this.treeDate = new Tree();
     }
 
+    public Tree getTreeCpf() {
+        return treeCpf;
+    }
+
+    public Tree getTreeName() {
+        return treeName;
+    }
+
+    public Tree getTreeDate() {
+        return treeDate;
+    }
+
     public void read(String user, String nome) {
         try {
-            FileReader fis = new FileReader("C:\\Users\\" + user + "\\" + nome);
+            FileReader fis = new FileReader("C:\\Users\\" + user + "\\" + nome + ".csv");
             BufferedReader r = new BufferedReader(fis);
 
             String line = "";
@@ -50,11 +62,11 @@ public class Reader {
                         treeDate.insert(days.toString(), newPerson);
                         treeName.insert(name, newPerson);
 
-                        System.out.println(cpf);
-                        System.out.println(rg);
-                        System.out.println(name);
-                        System.out.println("days: " + days);
-                        System.out.println(city);
+                        System.out.println("CPF: " + cpf);
+                        System.out.println("RG: " + rg);
+                        System.out.println("Nome: " + name);
+                        System.out.println("Nascimento: " + listSplited[3]);
+                        System.out.println("Cidade" + city);
                         System.out.println(" ");
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -71,16 +83,10 @@ public class Reader {
 
     }
 
-    public Person searchCPF(String cpf){
-        return treeCpf.searchPerson(cpf);
-    }
-
-    public ArrayList<Person>  searchName(String name){
-        return treeName.searchName(name);
-    }
-
-    public ArrayList<Person>  searchDate(String start, String end){
-        return treeDate.searchDate(start, end);
+    public void clearTrees() {
+        this.treeCpf = new Tree();
+        this.treeName = new Tree();
+        this.treeDate = new Tree();
     }
 
 }

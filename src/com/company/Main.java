@@ -5,55 +5,56 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        Tree avl = new Tree();
-//        avl.insert(32);
-//        avl.insert(16);
-//        avl.insert(48);
-//        avl.insert(8);
-//        avl.insert(24);
-//        avl.insert(40);
-//        avl.insert(56);
-//
-//        avl.insert(36);
-//        avl.insert(28);
-//
-//        avl.insert(44);
-//        avl.insert(52);
-//
-//        avl.insert(60);
-//        avl.insert(7);
-//        avl.insert(1);
-//        avl.insert(2);
-//        avl.insert(1);
-//        avl.insert(5);
-//        avl.insert(4);
-//        avl.insert(14);
-//        avl.insert(20);
-//        avl.insert(16);
-//        UserInteraction userCommands = new UserInteraction(avl);
-//        boolean exit =  true;
-//        avl.print();
-//        while (exit) {
-//            String command = userCommands.leString("\nDigite I para inserir um novo nó \nDigite B para buscar um nó" +
-//                    "\nDigite R para remover um nó \nDigite qualquer outra coisa para finalizar a operação");
-//            if (!(command.equalsIgnoreCase("I") || command.equalsIgnoreCase("R") || command.equalsIgnoreCase("B"))) {
-//                exit = false;
-//                System.out.println("saindo...");
-//                break;
-//            }
-//            int nodeValue = userCommands.leInt("Digite o valor do nó");
-//            if(userCommands.readCommand(command, nodeValue)) {
-//                System.out.println("Operação realizada com sucesso!");
-//            }
-//            userCommands.print();
-//        }
-        Reader r = new Reader();
-        r.read("eduar", "teste.csv");
-//        Person tal = r.searchCPF("10987654325");
-//        System.out.println(tal.toString());
-//        ArrayList<Person> people = r.searchName("A");
-        ArrayList<Person> people = r.searchDate("10/02/2020", "10/03/4002");
-        System.out.println(people);
+
+
+        ArrayList<Person> people;
+
+        while (true) {
+            Reader reader = new Reader();
+            UserInteraction userCommands = new UserInteraction(reader);
+            String user = userCommands.leString("\n Digite usuário do seu computador: ");
+            String file = userCommands.leString("\n Digite o nome do arquivo csv que deseja ler (sem a extensão): ");
+            reader.read(user, file);
+            System.out.println("Pessoas carregadas do arquivo");
+
+            while (true) {
+                String command = userCommands.leString("\nDigite 1 para pesquisar por uma pessoa pelo CPF: "
+                        + "\nDigite 2 para pesquisar pessoas pelo nome"
+                        + "\nDigite 3 para pesquisar pessoas que nasceram em certo periodo"
+                        + "\nDigite 0 para voltar a seleção do arquivo");
+
+                if(command.equals("1")) {
+                    String cpf = userCommands.leString("\n Digite o CPF: ");
+                    Person person = userCommands.searchCPF(cpf);
+                    if (person == null)
+                        System.out.println("Nao foi encontrado ninguem");
+                    else
+                        System.out.println(person);
+                }
+                if(command.equals("2")) {
+                    String name = userCommands.leString("\n Digite o nome (ou iniciais): ");
+                    people = userCommands.searchName(name);
+                    if (people.isEmpty())
+                        System.out.println("Nao foi encontrado ninguem");
+                    else
+                        System.out.println(people);
+                }
+                if(command.equals("3")) {
+                    String start = userCommands.leString("\n Digite a data inicial no formato DIA/MES/ANO: ");
+                    String end = userCommands.leString("\n Digite a data final no formato DIA/MES/ANO: ");
+                    people = userCommands.searchDate(start, end);
+                    if (people.isEmpty())
+                        System.out.println("Nao foi encontrado ninguem");
+                    else
+                        System.out.println(people);
+                }
+                if(command.equals("0")) {
+                    break;
+                }
+            }
+        }
+
+
     }
 }
 

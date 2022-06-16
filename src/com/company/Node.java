@@ -74,9 +74,9 @@ public class Node {
     }
 
     public Person searchCPF(String value){
-        System.out.print(this.value + " -> ");
+//        System.out.print(this.value + " -> ");
         if (this.value.equals(value)){
-            System.out.print("Encontrado\n");
+//            System.out.print("Encontrado\n");
             return person;
         }
         else {
@@ -87,16 +87,16 @@ public class Node {
                 return left.searchCPF(value);
             }
             else {
-                System.out.print("Fim da árvore, valor não encontrado\n");
+//                System.out.print("Fim da árvore, valor não encontrado\n");
                 return null;
             }
         }
     }
 
     public void searchName(String value, ArrayList<Person> people){
-        System.out.print(this.value + " -> ");
+//        System.out.print(this.value + " -> ");
         if (this.value.substring(0, value.length()).equalsIgnoreCase(value)){
-            System.out.print("Encontrado\n");
+//            System.out.print("Encontrado\n");
             people.add(person);
         }
         if ((value.compareToIgnoreCase(this.value.substring(0, value.length())) > -1) && right != null){
@@ -112,9 +112,9 @@ public class Node {
         try {
             Date startDate = formatter.parse(start);
             Date endDate = formatter.parse(end);
-            Long startDateLong = TimeUnit.DAYS.convert(startDate.getTime(), TimeUnit.MILLISECONDS);
-            Long endDateLong = TimeUnit.DAYS.convert(endDate.getTime(), TimeUnit.MILLISECONDS);
-            Long valueLong = Long.parseLong(value);
+            long startDateLong = TimeUnit.DAYS.convert(startDate.getTime(), TimeUnit.MILLISECONDS);
+            long endDateLong = TimeUnit.DAYS.convert(endDate.getTime(), TimeUnit.MILLISECONDS);
+            long valueLong = Long.parseLong(value);
 
             if (valueLong >= startDateLong && valueLong <= endDateLong){
                 people.add(person);
@@ -244,24 +244,24 @@ public class Node {
         if (value != null){
             Integer factor = getFactor();
             if (factor > 1){
-                System.out.println("Arvore desbalanceada");
+//                System.out.println("Arvore desbalanceada");
                 if (left.getFactor() >= 0){
                     System.out.println("Realizando rotação a direita");
                     rotateRight();
                     balanceRight = false;
                 } else if (left.getFactor() < 0){
-                    System.out.println("Realizando dupla rotação a direita");
+//                    System.out.println("Realizando dupla rotação a direita");
                     doubleRotationRight();
                     balanceRight = false;
                 }
             } else if (factor < -1){
-                System.out.println("Arvore desbalanceada");
+//                System.out.println("Arvore desbalanceada");
                 if (right.getFactor() <= 0){
-                    System.out.println("Realizando rotação a esquerda");
+//                    System.out.println("Realizando rotação a esquerda");
                     rotateLeft();
                     balanceLeft = false;
                 } else if (right.getFactor() > 0) {
-                    System.out.println("Realizando dupla rotação a esquerda");
+//                    System.out.println("Realizando dupla rotação a esquerda");
                     doubleRotationLeft();
                     balanceLeft = false;
                 }
