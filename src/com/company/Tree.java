@@ -58,7 +58,6 @@ public class Tree {
             if (root.getValue() != null){
                 ArrayList<Person> people = new ArrayList<Person>();
                 root.searchName(value, people);
-//                System.out.println(people.size() + " pessoas encontradas");
                 return people;
             }
         }
@@ -70,7 +69,6 @@ public class Tree {
             if (root.getValue() != null){
                 ArrayList<Person> people = new ArrayList<Person>();
                 root.searchDate(start, end, people);
-//                System.out.println(people.size() + " pessoas encontradas");
                 return people;
             }
         }

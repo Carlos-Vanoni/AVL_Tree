@@ -1,4 +1,6 @@
 //Participantes: Eduardo Bernardi e Carlos Eduardo Vanoni
+//O arquivo csv deve estar no diretório do usuário fornecido, para execução do programa
+//Ex: C:\Users\{usuário}\teste.csv
 package com.company;
 
 import java.util.ArrayList;
@@ -61,8 +63,6 @@ public class Main {
                 }
             }
         }
-
-
     }
 }
 
