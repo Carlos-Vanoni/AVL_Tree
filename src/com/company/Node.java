@@ -93,7 +93,7 @@ public class Node {
         }
     }
 
-    public ArrayList<Person> searchName(String value, ArrayList<Person> people){
+    public void searchName(String value, ArrayList<Person> people){
         System.out.print(this.value + " -> ");
         if (this.value.substring(0, value.length()).equalsIgnoreCase(value)){
             System.out.print("Encontrado\n");
@@ -105,10 +105,9 @@ public class Node {
         if ((value.compareToIgnoreCase(this.value.substring(0, value.length())) < 1) && left != null) {
             left.searchName(value, people);
         }
-        return people;
     }
 
-    public ArrayList<Person> searchDate(String start, String end, ArrayList<Person> people) {
+    public void searchDate(String start, String end, ArrayList<Person> people) {
         SimpleDateFormat formatter = new SimpleDateFormat("d/MM/yyyy");
         try {
             Date startDate = formatter.parse(start);
@@ -129,7 +128,6 @@ public class Node {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return people;
     }
 
     public Integer getFactor(){
